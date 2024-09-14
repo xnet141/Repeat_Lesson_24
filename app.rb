@@ -45,7 +45,6 @@ post '/visit' do
 	end
 	
 	
-
 	if err.length == 0
 		erb "User: #{@username}, Phone: #{@phone}, barber: #{@barber}, Date, time: #{@datetime}, Color: #{@color} \n"
 	else
