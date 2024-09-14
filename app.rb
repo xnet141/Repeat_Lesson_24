@@ -36,22 +36,28 @@ post '/visit' do
 		:color => @color
 	}
 	
-	@error = []
+	err = []
 	
 	hh.keys.each do |key|
 		if  hh[key] == '' || hh[key] == '#7bd148'
-			@error << key
+			err << key
 		end
 	end
 	
-	@error = "Введите:  #{@error.join(', ')}"
+	
 
+	if err.length == 0
+		erb "User: #{@username}, Phone: #{@phone}, barber: #{@barber}, Date, time: #{@datetime}, Color: #{@color} \n"
+	else
+		@error = "Введите:  #{err.join(', ')}"
+		erb :visit
+	end
 	#f = File.open "public/users.txt", "a"
 	#f.write "User: #{@username}, Phone: #{@phone}, barber: #{@barber}, Date, time: #{@datetime} \n"
 	#f.close
 
 	#erb "User: #{@username}, Phone: #{@phone}, barber: #{@barber}, Date, time: #{@datetime}, Color: #{@color} \n"
-	erb :visit
+	
 
 end
 
