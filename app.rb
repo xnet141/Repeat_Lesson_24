@@ -8,6 +8,7 @@ get '/' do
 end
 
 get '/about' do
+	@error = 'something wrong!'
 	erb :about 
 end
 
@@ -20,18 +21,38 @@ get '/visit' do
 end
 
 post '/visit' do
+
 	@username = params[:username]
 	@phone = params[:phone]
 	@datetime = params[:datetime]
 	@barber = params[:barber]
 	@color = params[:color]
+	
+	hh = {
+		'Имя пользователя' => @username, 
+		:phone => @phone, 
+		:datetime => @datetime, 
+		:barber => @barber, 
+		:color => @color
+	}
+	
+	@error = []
+	
+	hh.keys.each do |key|
+		if  hh[key] == '' || hh[key] == '#7bd148'
+			@error << key
+		end
+	end
+	
+	@error = "Введите:  #{@error.join(', ')}"
 
 	#f = File.open "public/users.txt", "a"
 	#f.write "User: #{@username}, Phone: #{@phone}, barber: #{@barber}, Date, time: #{@datetime} \n"
 	#f.close
 
-	erb "User: #{@username}, Phone: #{@phone}, barber: #{@barber}, Date, time: #{@datetime}, Color: #{@color} \n"
-	#erb :visit
+	#erb "User: #{@username}, Phone: #{@phone}, barber: #{@barber}, Date, time: #{@datetime}, Color: #{@color} \n"
+	erb :visit
+
 end
 
 
